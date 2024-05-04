@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using UnityEngine;
+
+public class Fps : MonoBehaviour
+{
+    // Start is called before the first frame update
+    [SerializeField]private Rigidbody reg;
+    [SerializeField] private float speed = 1;
+   
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+   
+    void Update()
+    {
+        // ввод данных по аси горизантальной при помощь клв 
+        float horizontal = Input.GetAxis("Horizontal");
+        // ввод данных по аси вертикальной при помощь клв 
+        float vertical = Input.GetAxis("Vertical");
+        //поворт по оси между х и z 
+        Vector3 movedir = new Vector3(horizontal * speed,0,vertical*speed);
+        // velocity это Это свойство физического тела, которое показывает величину ускорения объекта
+        reg.velocity = movedir;
+        //magnitude -возвращает постоянную длину вектора 
+        if (movedir.magnitude >1){
+              reg.velocity = movedir.normalized * 1;
+        } else{
+            //normalized - он возвращает нормализированную длину к 1 
+             reg.velocity = movedir.normalized;
+        }
+    }
+}
